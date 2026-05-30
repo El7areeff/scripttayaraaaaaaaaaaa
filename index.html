@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بوابة اسكريبت الطيارة - الحريف EL7AREFF</title>
+    <!-- Perfect Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;850;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Modern Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailored Tailwind configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Cairo", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              cyber: {
+                950: '#050814',
+                900: '#0a1127',
+                850: '#0d1635',
+                800: '#0e193d',
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Custom Glowing Styles & Animations for raw 3D effects -->
+    <style>
+      body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #050814;
+        color: #f3f4f6;
+        overflow-x: hidden;
+      }
+
+      /* Moving Ambient Mesh Gradients */
+      @keyframes mesh-rotate {
+        0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+        33% { transform: translate(30px, -50px) rotate(120deg) scale(1.15); }
+        66% { transform: translate(-20px, 20px) rotate(240deg) scale(0.85); }
+        100% { transform: translate(0px, 0px) rotate(360deg) scale(1); }
+      }
+
+      @keyframes pulse-slow {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 0.7; }
+      }
+
+      .animate-mesh-1 {
+        animation: mesh-rotate 25s infinite alternate ease-in-out;
+      }
+
+      .animate-mesh-2 {
+        animation: mesh-rotate 18s infinite alternate-reverse ease-in-out;
+      }
+
+      .animate-pulse-slow {
+        animation: pulse-slow 8s infinite ease-in-out;
+      }
+
+      /* Absolute visual grid from screenshot */
+      .bg-cyber-grid {
+        background-image: radial-gradient(rgba(6, 182, 212, 0.12) 1.5px, transparent 1.5px);
+        background-size: 24px 24px;
+      }
+
+      /* Glowing panels */
+      .glass-panel-heavy {
+        background: rgba(13, 22, 53, 0.82);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(59, 130, 246, 0.22);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      }
+
+      /* Glowing 3D Button */
+      .glow-button {
+        background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%);
+        background-size: 200% auto;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .glow-button:hover {
+        background-position: right center;
+        box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+        transform: translateY(-3px) scale(1.02);
+      }
+
+      .custom-input {
+        background: rgba(14, 25, 61, 0.65);
+        border: 2px solid rgba(59, 130, 246, 0.25);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .custom-input:focus {
+        border-color: #06b6d4;
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+        background: rgba(14, 25, 61, 0.9);
+      }
+
+      /* Floating particles keyframes */
+      @keyframes float-up {
+        0% { transform: translateY(110vh) translateX(0) scale(1); opacity: 0; }
+        10% { opacity: 0.7; }
+        90% { opacity: 0.7; }
+        100% { transform: translateY(-10vh) translateX(25px) scale(0.85); opacity: 0; }
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float-up 15s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="h-full flex flex-col justify-between select-none overflow-x-hidden">
+    
+    <!-- Embedded 3D background elements (Zero-White-Screen Guarantee) -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div class="absolute -top-[20%] -right-[10%] w-[55%] h-[55%] rounded-full bg-cyan-600/10 blur-[120px] animate-mesh-1"></div>
+      <div class="absolute -bottom-[15%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/15 blur-[110px] animate-mesh-2"></div>
+      <div class="absolute inset-0 bg-cyber-grid opacity-75 animate-pulse-slow"></div>
+      
+      <!-- Generated Particles directly via pure CSS with staggered animation delays -->
+      <div class="particle bg-cyan-400/30 w-1 h-1 shadow-[0_0_8px_#22d3ee]" style="left: 15%; animation-duration: 18s; animation-delay: -2s;"></div>
+      <div class="particle bg-blue-400/20 w-1.5 h-1.5 shadow-[0_0_10px_#60a5fa]" style="left: 45%; animation-duration: 14s; animation-delay: -5s;"></div>
+      <div class="particle bg-indigo-400/30 w-1 h-1 shadow-[0_0_8px_#818cf8]" style="left: 75%; animation-duration: 22s; animation-delay: -9s;"></div>
+      <div class="particle bg-cyan-300/25 w-2 h-2" style="left: 30%; animation-duration: 16s; animation-delay: -1s;"></div>
+      <div class="particle bg-rose-400/15 w-1 h-1 shadow-[0_0_6px_#f43f5e]" style="left: 85%; animation-duration: 19s; animation-delay: -4s;"></div>
+    </div>
+
+    <!-- Live HUD Header -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative z-10 pointer-events-none">
+      <div class="flex items-center gap-2 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-xl backdrop-blur-md">
+        <!-- Terminal icon -->
+        <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+        </svg>
+        <span class="text-[10px] font-mono tracking-widest text-cyan-300 font-black">AVIA_CONTROL_V9.4</span>
+      </div>
+
+      <div class="flex items-center gap-2 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-xl backdrop-blur-md">
+        <!-- Pulse dot -->
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="text-[10px] font-mono tracking-widest text-cyan-300 font-black">LIVE_STATUS: SECURE</span>
+      </div>
+    </header>
+
+    <!-- App Main Screen Switch Router -->
+    <main class="flex-grow flex items-center justify-center relative w-full px-4 py-8 md:py-16 z-10">
+      
+      <!-- SCREEN 1: VERIFICATION SCREEN -->
+      <div id="screen-verification" class="w-full max-w-2xl flex flex-col items-center transition-all duration-500 ease-out transform scale-100 opacity-100">
+        
+        <!-- Animated 3D Cyber Shield Widget -->
+        <div class="mb-6 flex flex-col items-center">
+          <div class="relative group cursor-pointer duration-300 transform active:scale-95">
+            <div class="absolute inset-0 bg-cyan-500 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 duration-300 animate-pulse"></div>
+            <div class="relative w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center border border-cyan-300/30">
+              <!-- Shield Check Icon -->
+              <svg class="w-8 h-8 text-white animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0110 20.062a3.745 3.745 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.745 3.745 0 013.296-1.043A3.746 3.746 0 0114 3.938a3.745 3.745 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Card -->
+        <div id="card-verif-3d" class="w-full glass-panel-heavy rounded-3xl p-6 sm:p-8 relative overflow-hidden transition-all duration-300">
+          <!-- Cyber bar -->
+          <div class="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500"></div>
+          
+          <h1 class="text-2xl sm:text-3xl font-black text-center text-white mb-6 uppercase tracking-wider">
+            <span class="bg-gradient-to-l from-cyan-400 to-blue-300 bg-clip-text text-transparent">
+              تأكيد استخدام الاسكريبت
+            </span>
+          </h1>
+
+          <div class="space-y-6">
+            
+            <!-- ID Input Panel -->
+            <div class="space-y-2">
+              <label class="block text-right text-xs sm:text-sm font-bold text-gray-300 mb-2 mr-1 flex items-center justify-between">
+                <span class="flex items-center gap-1.5 text-cyan-400">
+                  <!-- Hash icon -->
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5" />
+                  </svg>
+                  معرف الحساب (ID)
+                </span>
+                <span id="char-counter" class="text-xs text-gray-400">0 / 10 رقم</span>
+              </label>
+
+              <div class="relative">
+                <input
+                  id="account-id-field"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="أدخل ID الحساب الذي تم إنشاؤه باستخدام البروموكود EL7AREFF"
+                  class="w-full text-center text-base sm:text-lg font-mono font-black py-4 px-4 custom-input text-cyan-200 placeholder-slate-500 rounded-2xl outline-none"
+                  maxlength="10"
+                />
+
+                <!-- Check icon when complete -->
+                <div id="check-icon-success" class="absolute left-4 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center hidden animate-bounce">
+                  <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Visual indicator dot strip -->
+              <div class="flex justify-center gap-1.5 py-2" id="strip-indicators">
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+                <div class="h-1.5 w-2 sm:w-2 bg-slate-800 rounded-full transition-all duration-300"></div>
+              </div>
+            </div>
+
+            <!-- Agreement Checkbox -->
+            <div class="flex items-start gap-3 py-1 cursor-pointer group" id="checkbox-agree-trigger">
+              <div id="checkbox-box" class="mt-0.5 flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300 bg-slate-900 border-2 border-slate-700 hover:border-cyan-500/50">
+                <!-- Check symbol inside -->
+                <svg class="w-4 h-4 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </div>
+              <span class="text-right text-sm font-bold select-none text-gray-300 group-hover:text-white transition-colors">
+                أوافق على كل شروط استخدام الروبوت الموضحة وإخلاء المسؤولية.
+              </span>
+            </div>
+
+            <!-- Terms block matching first screen description exactly -->
+            <div class="mt-6 pt-4 border-t border-slate-800/60 space-y-4">
+              
+              <!-- Copyable Promocode Banner -->
+              <div class="bg-slate-950/70 border border-cyan-500/10 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="p-2 bg-gradient-to-br from-yellow-400/10 to-amber-500/10 rounded-xl border border-yellow-500/20">
+                    <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l8.954-8.914M21 12h-6M12 21H3M3 12H9m0 0l2 2m4-9a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-slate-400 font-bold">البروموكود الحصري للتشغيل</div>
+                    <div class="text-lg font-black tracking-widest text-amber-400 font-mono">EL7AREFF</div>
+                  </div>
+                </div>
+                
+                <button
+                  id="btn-copy-promo"
+                  type="button"
+                  class="w-full sm:w-auto px-4 py-2 bg-slate-900 hover:bg-slate-800 text-xs text-cyan-300 hover:text-white border border-cyan-500/20 hover:border-cyan-500/50 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                >
+                  <span id="copy-btn-text">نسخ الكود</span>
+                </button>
+              </div>
+
+              <!-- Precise bullet text list from first screenshot -->
+              <div class="space-y-3 bg-slate-950/40 p-4 rounded-2xl border border-slate-800/40">
+                <div class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mt-1 text-cyan-400 font-mono text-xs font-bold">1</div>
+                  <p class="text-gray-300 text-xs sm:text-sm text-right leading-relaxed">
+                    يجب إنشاء حساب جديد باستخدام البروموكود <span class="text-amber-400 font-mono font-bold select-all bg-yellow-500/10 px-1 rounded">EL7AREFF</span> فقط لضمان تفعيل توقعات الروبوت بشكل صحيح.
+                  </p>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mt-1 text-cyan-400 font-mono text-xs font-bold">2</div>
+                  <p class="text-gray-300 text-xs sm:text-sm text-right leading-relaxed">
+                    تأكد من شحن حسابك بمبلغ <span className="font-mono text-emerald-400 font-extrabold">$20</span> أو ما يعادلها بعملتك المحلية قبل الدخول لتفادي مشاكل الاتصال التلقائي بالخوادم.
+                  </p>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mt-1 text-cyan-400 font-mono text-xs font-bold">3</div>
+                  <p class="text-gray-300 text-xs sm:text-sm text-right leading-relaxed">
+                    عدم الإفراط في استخدام التطبيق والالتزام بنسبة الربح المقررة لتجنب إيقاف الحساب.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Error Banner -->
+            <div id="error-alert-box" class="p-3.5 bg-red-500/15 border border-red-500/30 rounded-xl flex items-center gap-2.5 text-red-400 text-xs sm:text-sm text-right hidden animate-pulse">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+              <span id="error-message-text">يرجى ملء كافة الحقول بشكل صحيح.</span>
+            </div>
+
+            <!-- Launch Button Confirm -->
+            <button
+              id="btn-trigger-submit"
+              type="button"
+              class="w-full py-4 text-base sm:text-lg font-black tracking-wide text-white rounded-2xl glow-button flex items-center justify-center gap-2 cursor-pointer shadow-lg outline-none"
+            >
+              <span id="submit-btn-spinner" class="hidden">
+                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+              <span id="submit-btn-icon">
+                <svg class="w-5 h-5 text-white animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.254-.627 2.378-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0110 20.062a3.745 3.745 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.254.627-2.378 1.593-3.068a3.745 3.745 0 011.043-3.296 3.745 3.745 0 013.296-1.043A3.746 3.746 0 0114 3.938a3.745 3.745 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                </svg>
+              </span>
+              <span id="submit-btn-text">تأهـيل الاسكـريبت وتأكيـد</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: SCRIPT SELECTION SCREEN (Only shows Aviator plane script!) -->
+      <div id="screen-selection" class="w-full max-w-2xl flex flex-col items-center hidden transition-all duration-500 ease-out transform scale-95 opacity-0">
+        
+        <!-- Header HUD -->
+        <div class="w-full flex items-center justify-between mb-8 pb-4 border-b border-slate-800/40">
+          <button
+            id="btn-back-change"
+            class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+          >
+            <!-- Log out icon -->
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 00-2.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+            </svg>
+            <span>تغيير الحساب</span>
+          </button>
+
+          <div class="flex items-center gap-2 bg-slate-900/40 px-3.5 py-1.5 rounded-full border border-slate-800">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+            <span id="badge-id-num" class="text-xs text-slate-300 font-mono font-bold">ID: ---------</span>
+          </div>
+        </div>
+
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-black text-white bg-gradient-to-l from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+            اختر الاسكريبت الخاص بك
+          </h1>
+          <p class="text-sm text-slate-400 mt-2">
+            تم تفعيل الخادم بنجاح ومطابقة المعرف الخاص بك.
+          </p>
+        </div>
+
+        <!-- Two Scripts Selection 3D Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl px-2">
+
+          <!-- Card 1: Aviator plane script 3D card -->
+          <div
+            id="card-aviator-3d"
+            class="w-full glass-panel-heavy rounded-3xl p-6 relative overflow-hidden cursor-pointer group transition-all duration-300 border-2 border-cyan-500/20 hover:border-cyan-400/60 flex flex-col justify-between"
+          >
+            <!-- Dynamic blue glow from bottom -->
+            <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-cyan-500/10 to-transparent opacity-80 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none"></div>
+
+            <!-- Red fire fighter trail -->
+            <div class="absolute top-[35%] right-[20%] w-64 h-[1px] bg-gradient-to-l from-red-500 to-transparent blur-[1px] rotate-[-12deg] group-hover:w-80 duration-500"></div>
+
+            <!-- Top Status Tag -->
+            <div class="absolute top-4 left-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>متوافق ونشط</span>
+            </div>
+
+            <!-- Core Plane Graphic Presentation -->
+            <div class="relative py-12 flex flex-col items-center justify-center">
+              
+              <div class="relative mb-6 transform group-hover:scale-110 group-hover:rotate-[-5deg] duration-300 ease-out">
+                <div class="absolute inset-0 bg-red-600/20 rounded-full blur-2xl opacity-60 group-hover:opacity-100 group-hover:scale-110 duration-300"></div>
+                <div class="relative w-28 h-28 bg-gradient-to-br from-red-500 via-rose-600 to-orange-500 rounded-full flex items-center justify-center border-4 border-white/10 shadow-[0_0_30px_rgba(239,68,68,0.4)]">
+                  <!-- Airplane/Jet Icon -->
+                  <svg class="w-14 h-14 text-white transform rotate-[-45deg] animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                  </svg>
+                </div>
+                
+                <div class="absolute -inset-4 border border-cyan-500/10 rounded-full animate-ping pointer-events-none" style="animation-duration: 4s;"></div>
+                <div class="absolute -inset-8 border border-red-500/5 rounded-full animate-ping pointer-events-none" style="animation-duration: 6s;"></div>
+              </div>
+
+              <h3 class="text-2xl font-black text-white text-center group-hover:text-cyan-400 duration-300">
+                اسكريبت الطيارة (Aviator)
+              </h3>
+              <p class="text-xs text-cyan-300/80 mt-1 text-center font-mono tracking-wider font-bold">
+                ALGORITHMIC FLIGHT FORECASTER
+              </p>
+
+              <!-- Hacking Grid Server Stats -->
+              <div class="w-full mt-6 bg-slate-950/60 border border-slate-800/60 p-3 rounded-2xl grid grid-cols-2 gap-2 text-right pointer-events-none">
+                <div>
+                  <div class="text-[10px] text-slate-400">استجابة السيرفر</div>
+                  <div class="text-xs font-bold font-mono text-emerald-400 flex items-center gap-1 justify-end">
+                    <span>12ms</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856a8.25 8.25 0 0111.788 0m-14.93-3.181a11.25 11.25 0 0118.036 0M12 18.75h.008v.008H12v-.008z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="border-l border-slate-800/80 pr-2">
+                  <div class="text-[10px] text-slate-400">دقة التوقع الحالية</div>
+                  <div class="text-xs font-bold font-mono text-cyan-400 flex items-center gap-1 justify-end">
+                    <span>98.6%</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="col-span-2 border-t border-slate-800/80 pt-2 mt-1">
+                  <div class="text-[10px] text-slate-400">حالة الربط والمعايرة</div>
+                  <div class="text-xs font-bold text-gray-200 flex items-center gap-1 justify-end">
+                    <span class="text-yellow-400">تلقائي مع EL7AREFF</span>
+                    <svg class="w-3 h-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7C4.795 9.547 4.75 10.768 4.75 12s.045 2.453.137 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.092-1.209.138-2.43.138-3.662z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.5 8.5l3 3.5-3 3.5" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom CTA Block inside Card -->
+            <div id="btn-aviator-cta" class="mt-2 w-full bg-gradient-to-r from-red-600 via-rose-600 to-orange-600 group-hover:from-cyan-500 group-hover:to-blue-600 text-white rounded-2xl py-3 px-4 font-extrabold text-sm flex items-center justify-center gap-2 duration-300 shadow-md">
+              <span>تشغيل الاسكريبت الآن</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Card 2: Apple script 3D card -->
+          <div
+            id="card-apple-3d"
+            class="w-full glass-panel-heavy rounded-3xl p-6 relative overflow-hidden cursor-pointer group transition-all duration-300 border-2 border-red-500/20 hover:border-red-400/60 flex flex-col justify-between"
+          >
+            <!-- Dynamic crimson/amber glow from bottom -->
+            <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-red-600/10 to-transparent opacity-85 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none"></div>
+
+            <!-- Gold spark trail -->
+            <div class="absolute top-[35%] right-[20%] w-64 h-[1px] bg-gradient-to-l from-yellow-500 to-transparent blur-[1px] rotate-[-12deg] group-hover:w-80 duration-500"></div>
+
+            <!-- Top Status Tag -->
+            <div class="absolute top-4 left-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>متوافق ونشط</span>
+            </div>
+
+            <!-- Core Apple Graphic Presentation -->
+            <div class="relative py-12 flex flex-col items-center justify-center">
+              
+              <div class="relative mb-6 transform group-hover:scale-110 group-hover:rotate-[5deg] duration-300 ease-out">
+                <div class="absolute inset-0 bg-red-500/20 rounded-full blur-2xl opacity-60 group-hover:opacity-100 group-hover:scale-110 duration-300"></div>
+                <div class="relative w-28 h-28 bg-gradient-to-br from-red-500 via-rose-600 to-amber-500 rounded-full flex items-center justify-center border-4 border-white/10 shadow-[0_0_30px_rgba(220,38,38,0.45)]">
+                  <!-- Apple Icon -->
+                  <svg class="w-14 h-14 text-white transform hover:scale-110 duration-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.1,16.67C20.08,16.74 19.67,18.11 18.71,19.5M15.97,4.17C16.63,3.37 17.07,2.28 16.95,1C16,1.04 14.9,1.6 14.24,2.38C13.68,3.04 13.19,4.14 13.34,5.39C14.39,5.47 15.4,4.88 15.97,4.17Z"/>
+                  </svg>
+                </div>
+                
+                <div class="absolute -inset-4 border border-red-500/10 rounded-full animate-ping pointer-events-none" style="animation-duration: 4s;"></div>
+                <div class="absolute -inset-8 border border-yellow-500/5 rounded-full animate-ping pointer-events-none" style="animation-duration: 6s;"></div>
+              </div>
+
+              <h3 class="text-2xl font-black text-white text-center group-hover:text-red-400 duration-300">
+                اسكريبت التفاحة (Apple)
+              </h3>
+              <p class="text-xs text-red-300/80 mt-1 text-center font-mono tracking-wider font-bold">
+                ALGORITHMIC ORCHARD PREDICTOR
+              </p>
+
+              <!-- Hacking Grid Server Stats -->
+              <div class="w-full mt-6 bg-slate-950/60 border border-slate-800/60 p-3 rounded-2xl grid grid-cols-2 gap-2 text-right pointer-events-none">
+                <div>
+                  <div class="text-[10px] text-slate-400">استجابة السيرفر</div>
+                  <div class="text-xs font-bold font-mono text-emerald-400 flex items-center gap-1 justify-end">
+                    <span>9ms</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856a8.25 8.25 0 0111.788 0m-14.93-3.181a11.25 11.25 0 0118.036 0M12 18.75h.008v.008H12v-.008z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="border-l border-slate-800/80 pr-2">
+                  <div class="text-[10px] text-slate-400">دقة التوقع الحالية</div>
+                  <div class="text-xs font-bold font-mono text-red-400 flex items-center gap-1 justify-end">
+                    <span>97.4%</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="col-span-2 border-t border-slate-800/80 pt-2 mt-1">
+                  <div class="text-[10px] text-slate-400">حالة الربط والمعايرة</div>
+                  <div class="text-xs font-bold text-gray-200 flex items-center gap-1 justify-end">
+                    <span class="text-yellow-400">تلقائي مع EL7AREFF</span>
+                    <svg class="w-3 h-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7C4.795 9.547 4.75 10.768 4.75 12s.045 2.453.137 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.092-1.209.138-2.43.138-3.662z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.5 8.5l3 3.5-3 3.5" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom CTA Block inside Card -->
+            <div id="btn-apple-cta" class="mt-2 w-full bg-gradient-to-r from-red-600 via-rose-600 to-orange-600 group-hover:from-red-500 group-hover:to-amber-500 text-white rounded-2xl py-3 px-4 font-extrabold text-sm flex items-center justify-center gap-2 duration-300 shadow-md font-sans">
+              <span>تشغيل الاسكريبت الآن</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Warn box exactly matching the requested second screenshot details -->
+        <div class="w-full mt-8 p-5 bg-amber-500/10 border-2 border-amber-500/30 rounded-3xl flex items-start gap-3.5 relative overflow-hidden">
+          <div class="absolute -top-[10%] -left-[10%] w-[30%] h-[50%] rounded-full bg-amber-500/10 blur-[30px] pointer-events-none"></div>
+
+          <div class="p-2 bg-amber-500/15 rounded-xl border border-amber-500/30 text-amber-400 mt-1 flex-shrink-0 animate-pulse">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          </div>
+
+          <div class="space-y-1.5 text-right w-full">
+            <h4 class="text-sm font-black text-amber-400">تنبيه أمان هام جدًا !</h4>
+            <p class="text-xs sm:text-sm text-gray-300 text-right leading-relaxed font-semibold">
+              <span class="text-red-400 font-extrabold">تحذير:</span> الاسكريبتات الخاصة بنا بأكملها سيتم ربطها تلقائياً بحسابك إذا كنت مسجل بالبروموكود <span class="text-amber-400 font-extrabold font-mono select-all bg-yellow-400/10 px-1 py-0.5 rounded">EL7AREFF</span>. إذا تم إنشاء الحساب دون استخدام البروموكود، فسوف تحصل على <span class="text-red-400 font-extrabold underline decoration-wavy">توقعات خطأ وعشوائية</span> من الاسكريبت.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Secure SSL Certified Footer -->
+    <footer class="w-full py-6 text-center relative z-10 border-t border-slate-900 bg-slate-950/40 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="text-right flex items-center gap-2 text-slate-500 text-xs font-semibold">
+          <svg class="w-4 h-4 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+          </svg>
+          <span>نظام تشفير معتمد وحماية بنسبة 100% متصل ببروتوكول SSL.</span>
+        </div>
+
+        <div class="text-xs text-slate-500 font-mono font-bold">
+          &copy; <span id="copyright-year">2026</span> EL7AREFF AVIATOR CORP LIMITLESS.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive Vanilla Logic to guarantee zero compilation runtime failure -->
+    <script>
+      document.getElementById('copyright-year').innerText = new Date().getFullYear();
+
+      // State Managers
+      let accountId = "";
+      let hasAgreed = false;
+      let isSubmitting = false;
+
+      // HTML Elements
+      const inputField = document.getElementById('account-id-field');
+      const counterLabel = document.getElementById('char-counter');
+      const checkIcon = document.getElementById('check-icon-success');
+      const stripIndicators = document.getElementById('strip-indicators').children;
+      const checkboxBox = document.getElementById('checkbox-box');
+      const checkboxCheckSymbol = checkboxBox.querySelector('svg');
+      const errorBox = document.getElementById('error-alert-box');
+      const errorText = document.getElementById('error-message-text');
+      
+      const submitBtn = document.getElementById('btn-trigger-submit');
+      const submitBtnSpinner = document.getElementById('submit-btn-spinner');
+      const submitBtnIcon = document.getElementById('submit-btn-icon');
+      const submitBtnText = document.getElementById('submit-btn-text');
+
+      const screenVerification = document.getElementById('screen-verification');
+      const screenSelection = document.getElementById('screen-selection');
+      const badgeIdNum = document.getElementById('badge-id-num');
+
+      const btnBackChange = document.getElementById('btn-back-change');
+      const copyPromoBtn = document.getElementById('btn-copy-promo');
+      const copyBtnText = document.getElementById('copy-btn-text');
+
+      const verificationCard3D = document.getElementById('card-verif-3d');
+      const aviatorCard3D = document.getElementById('card-aviator-3d');
+      const appleCard3D = document.getElementById('card-apple-3d');
+
+      // Double-Click/File:// protocol fallback warning controller - keeps it working perfectly
+      console.log("Portal active. Offline stability: guaranteed.");
+
+      // Numerical ID Input Constraints
+      inputField.addEventListener('input', (e) => {
+        let val = e.target.value;
+        // Strip out non-numeric chars
+        let numericOnly = val.replace(/\D/g, '').slice(0, 10);
+        inputField.value = numericOnly;
+        accountId = numericOnly;
+
+        // Hide errors
+        errorBox.classList.add('hidden');
+
+        // Update indicators
+        counterLabel.innerText = `${numericOnly.length} / 10 رقم`;
+
+        if (numericOnly.length === 10) {
+          checkIcon.classList.remove('hidden');
+          counterLabel.classList.add('text-green-400', 'font-bold');
+        } else {
+          checkIcon.classList.add('hidden');
+          counterLabel.classList.remove('text-green-400', 'font-bold');
+        }
+
+        // Color dots
+        for (let i = 0; i < 10; i++) {
+          if (i < numericOnly.length) {
+            stripIndicators[i].className = "h-1.5 w-4 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(6,182,212,0.8)]";
+          } else if (i === numericOnly.length) {
+            stripIndicators[i].className = "h-1.5 w-3 bg-cyan-500 rounded-full animate-pulse transition-all duration-300";
+          } else {
+            stripIndicators[i].className = "h-1.5 w-2 bg-slate-800 rounded-full transition-all duration-300";
+          }
+        }
+      });
+
+      // Agreement Checkbox Handler
+      document.getElementById('checkbox-agree-trigger').addEventListener('click', () => {
+        if (isSubmitting) return;
+        hasAgreed = !hasAgreed;
+        errorBox.classList.add('hidden');
+
+        if (hasAgreed) {
+          checkboxBox.className = "mt-0.5 flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-cyan-400 to-blue-500 shadow-[0_0_12px_rgba(6,182,212,0.4)] scale-110 border-transparent";
+          checkboxCheckSymbol.classList.remove('hidden');
+        } else {
+          checkboxBox.className = "mt-0.5 flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300 bg-slate-900 border-2 border-slate-700 hover:border-cyan-500/50";
+          checkboxCheckSymbol.classList.add('hidden');
+        }
+      });
+
+      // Trigger Submit Verification
+      submitBtn.addEventListener('click', () => {
+        if (isSubmitting) return;
+
+        if (accountId.length !== 10) {
+          showError("يرجى كتابة الرقم المكون من 10 أرقام كاملةً.");
+          return;
+        }
+
+        if (!hasAgreed) {
+          showError("يجب الموافقة على جميع الشروط لتشغيل الاسكريبت.");
+          return;
+        }
+
+        // Complete Verification Transition simulation
+        isSubmitting = true;
+        errorBox.classList.add('hidden');
+
+        submitBtnSpinner.classList.remove('hidden');
+        submitBtnIcon.classList.add('hidden');
+        submitBtnText.innerText = "جاري ربط حسابك بربوت الحريف...";
+
+        setTimeout(() => {
+          // Transition screens smoothly
+          screenVerification.classList.add('scale-95', 'opacity-0');
+          setTimeout(() => {
+            screenVerification.classList.add('hidden');
+            
+            // Render selection screen
+            badgeIdNum.innerText = `ID: ${accountId}`;
+            screenSelection.classList.remove('hidden');
+            setTimeout(() => {
+              screenSelection.classList.remove('scale-95', 'opacity-0');
+              screenSelection.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            // Re-enable state
+            isSubmitting = false;
+            submitBtnSpinner.classList.add('hidden');
+            submitBtnIcon.classList.remove('hidden');
+            submitBtnText.innerText = "تأهـيل الاسكـريبت وتأكيـد";
+          }, 400);
+
+        }, 1800);
+      });
+
+      // Handle change account button click back
+      btnBackChange.addEventListener('click', () => {
+        screenSelection.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          screenSelection.classList.add('hidden');
+          
+          screenVerification.classList.remove('hidden');
+          setTimeout(() => {
+            screenVerification.classList.remove('scale-95', 'opacity-0');
+            screenVerification.classList.add('scale-100', 'opacity-100');
+          }, 50);
+        }, 400);
+      });
+
+      // Copier Button
+      copyPromoBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('EL7AREFF');
+        copyBtnText.innerText = "تم النسخ!";
+        setTimeout(() => {
+          copyBtnText.innerText = "نسخ الكود";
+        }, 2000);
+      });
+
+      // Redirect button trigger on aviator selection
+      document.getElementById('card-aviator-3d').addEventListener('click', () => {
+        const ctaBtn = document.getElementById('btn-aviator-cta');
+        ctaBtn.innerHTML = `
+          <svg class="animate-spin h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>جاري الانتقال للاسكريبت...</span>
+        `;
+        
+        setTimeout(() => {
+          window.location.href = 'https://el7areeff.github.io/scripttayara/';
+        }, 1200);
+      });
+
+      // Redirect button trigger on apple selection
+      document.getElementById('card-apple-3d').addEventListener('click', () => {
+        const ctaBtn = document.getElementById('btn-apple-cta');
+        ctaBtn.innerHTML = `
+          <svg class="animate-spin h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>جاري الانتقال للاسكريبت...</span>
+        `;
+        
+        setTimeout(() => {
+          window.location.href = 'https://el7areeff.github.io/apple8/';
+        }, 1200);
+      });
+
+      function showError(msg) {
+        errorText.innerText = msg;
+        errorBox.classList.remove('hidden');
+        
+        // Vibration
+        if (navigator.vibrate) {
+          navigator.vibrate(100);
+        }
+        
+        // Shake animation
+        verificationCard3D.classList.add('translate-x-2');
+        setTimeout(() => {
+          verificationCard3D.classList.remove('translate-x-2');
+          verificationCard3D.classList.add('-translate-x-2');
+          setTimeout(() => {
+            verificationCard3D.classList.remove('-translate-x-2');
+          }, 100);
+        }, 100);
+      }
+
+      // Live 3D mousemove physics card tilt listeners!
+      function handle3DTilt(element, cardElement) {
+        element.addEventListener('mousemove', (e) => {
+          const rect = cardElement.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          
+          cardElement.style.transform = `perspective(1000px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateY(-2px)`;
+          cardElement.style.transition = 'transform 0.05s ease-out, box-shadow 0.2s ease';
+        });
+
+        element.addEventListener('mouseleave', () => {
+          cardElement.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+          cardElement.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease';
+        });
+      }
+
+      handle3DTilt(verificationCard3D, verificationCard3D);
+      handle3DTilt(aviatorCard3D, aviatorCard3D);
+      handle3DTilt(appleCard3D, appleCard3D);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "اسكريبت الطيارة - الحريف",
+  "description": "بوابة تأكيد تفعيل اسكريبت الطيارة الحريف EL7AREFF مع واجهة ثلاثية الأبعاد متحركة لحماية وتأكيد حسابات البروموكود",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
